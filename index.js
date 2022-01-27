@@ -39,7 +39,7 @@ app.post('/napi/uploadfile', function (request, response) {
     //     if (temp_dir[i].match('nginx.service')) {
     //         nginx_temp_dir.push(temp_dir[i]);
     //     }
-    }
+    //}
     
 
     const dir = './uploads';
