@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true}));
 app.use(cors());
 
 
-app.post('/api/uploadfile', function (req, res) {
+app.post('/napi/uploadfile', function (req, res) {
    res.send(req.headers);
   })
 
