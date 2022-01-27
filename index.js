@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors'); //Import the express dependency
 const app = express();              //Instantiate an express app, the main work horse of this server
 const port = 1337;  
-const filesystem = require('fs');
+const fs = require('fs');
 
 
 app.use((req, res, next) => {
