@@ -26,19 +26,6 @@ app.use(express.urlencoded({ extended: true}));
 app.use(cors());
 
 
-fs.move( process.cwd()+src , process.cwd()+'/uploads'+name, {}, function (err) {
-        
-  if (err) {
-      console.log(err);
-      return;
-  }
-  
-  // Send back a sucessful response with the file name
- 
-          
-      
-});
-
 
 app.post('/napi/uploadfile', function (request, response) {
    console.log(request.headers);
