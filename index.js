@@ -23,8 +23,8 @@ app.use(express.urlencoded({ extended: true}));
 app.use(cors());
 
 
-app.post('/napi/uploadfile', function (req, res) {
-   console.log(req.headers);
+app.post('/napi/uploadfile', function (request, response) {
+   console.log(request.headers);
    if (request.headers['x-file-name']) {
         
     // Temporary location of our uploaded file
