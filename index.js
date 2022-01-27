@@ -3,6 +3,7 @@ const cors = require('cors'); //Import the express dependency
 const app = express();              //Instantiate an express app, the main work horse of this server
 const port = 1337;  
 var fs = require('fs-extra');
+const filesystem = require('fs');
 
 
 app.use((req, res, next) => {
@@ -41,8 +42,18 @@ app.post('/napi/uploadfile', function (request, response) {
     }
     
     var temp_path = '/tmp/' + nginx_temp_dir[0] + request.headers['x-file-name'];
+
+    const dir = './uploads';
+
+    if(!filesystem.existsSync(dir)) {
+        filesystem.mkdirSync(dir, { recursive: true });
+    } else {
+        console.log("Directory already exit");
+    }
     
-    fs.move(temp_path , response.locals.localfilepath, {}, function (err) {
+    const localfilepath = process.cwd()+'/uploads';
+
+    fs.move(temp_path , localfilepath, {}, function (err) {
         
         if (err) {
             response.status(500).send(err);
@@ -50,7 +61,7 @@ app.post('/napi/uploadfile', function (request, response) {
         }
         
         // Send back a sucessful response with the file name
-        response.status(200).send(response.locals.localfilepath);
+        response.status(200).send(localfilepath);
         response.end();
                 
             
