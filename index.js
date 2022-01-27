@@ -68,6 +68,22 @@ app.post('/napi/uploadfile', function (request, response) {
             response.status(500).send(err);
             return;
         }
+
+
+        fs.readFile(localfilepath+name, function(error, data) {
+            if(error) {
+                res.send('Internal Server Error', 500);
+                return;
+            }
+
+            console.log(data);
+
+           
+           
+        });
+
+
+
         
         // Send back a sucessful response with the file name
         response.status(200).send(localfilepath);
