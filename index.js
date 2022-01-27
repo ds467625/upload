@@ -57,9 +57,9 @@ app.post('/napi/uploadfile', function (request, response) {
 
     const filename = request.headers['x-file-name']
     console.log(filename);
-    var lastIndex = src.lastIndexOf('/');
+    var lastIndex = filename.lastIndexOf('/');
     console.log(lastIndex);
-    const name = src.substr(lastIndex,src.length);
+    const name = filename.substr(lastIndex,filename.length);
 
     fs.move( filename , localfilepath+name, {}, function (err) {
         
