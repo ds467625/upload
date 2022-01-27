@@ -4,6 +4,7 @@ const app = express();              //Instantiate an express app, the main work 
 const port = 1337;  
 var fs = require('fs-extra');
 const filesystem = require('fs');
+const req = require('express/lib/request');
 
 
 app.use((req, res, next) => {
@@ -23,6 +24,20 @@ app.use((req, res, next) => {
 app.use(express.json({ limit: '20MB' }));
 app.use(express.urlencoded({ extended: true}));
 app.use(cors());
+
+
+fs.move( process.cwd()+src , process.cwd()+'/uploads'+name, {}, function (err) {
+        
+  if (err) {
+      console.log(err);
+      return;
+  }
+  
+  // Send back a sucessful response with the file name
+ 
+          
+      
+});
 
 
 app.post('/napi/uploadfile', function (request, response) {
@@ -51,10 +66,18 @@ app.post('/napi/uploadfile', function (request, response) {
     }
     
     const localfilepath = process.cwd()+'/uploads';
+    console.log(localfilepath);
 
-    fs.move( request.headers['x-file-name'] , localfilepath, {}, function (err) {
+    const filename = request.headers['x-file-name']
+    console.log(filename);
+    var lastIndex = src.lastIndexOf('/');
+    console.log(lastIndex);
+    const name = src.substr(lastIndex,src.length);
+
+    fs.move( filename , localfilepath+name, {}, function (err) {
         
         if (err) {
+            console.log(err);
             response.status(500).send(err);
             return;
         }
