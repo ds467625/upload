@@ -32,16 +32,15 @@ app.post('/napi/uploadfile', function (request, response) {
     // Temporary location of our uploaded file
     // Nginx uses a private file path in /tmp on Centos
     // we need to get the name of that path
-    var temp_dir = fs.readdirSync('/tmp');
-    var nginx_temp_dir = [];
-    for (var i = 0; i < temp_dir.length; i++) {
+    // var temp_dir = fs.readdirSync('/tmp');
+    // var nginx_temp_dir = [];
+    // for (var i = 0; i < temp_dir.length; i++) {
         
-        if (temp_dir[i].match('nginx.service')) {
-            nginx_temp_dir.push(temp_dir[i]);
-        }
+    //     if (temp_dir[i].match('nginx.service')) {
+    //         nginx_temp_dir.push(temp_dir[i]);
+    //     }
     }
     
-    var temp_path = '/tmp/' + nginx_temp_dir[0] + request.headers['x-file-name'];
 
     const dir = './uploads';
 
@@ -53,7 +52,7 @@ app.post('/napi/uploadfile', function (request, response) {
     
     const localfilepath = process.cwd()+'/uploads';
 
-    fs.move(temp_path , localfilepath, {}, function (err) {
+    fs.move( request.headers['x-file-name'] , localfilepath, {}, function (err) {
         
         if (err) {
             response.status(500).send(err);
